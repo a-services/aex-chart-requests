@@ -1,0 +1,31 @@
+= aex-chart-requests: Charting server load data from aexlogs
+
+== Setup
+
+To add npm-modules to the project run `npm install`
+
+Before starting the server, you need to create a `.env` file in the root folder of the project with the parameters:
+
+====
+app_port::
+App server port
+
+host_name::
+Host name used as label on chart
+
+mongo_url::
+MongoDB instance url to get data
+
+req_db::
+Database with requests data
+====
+
+== Starting server
+
+To start `aex-chart-requests` server use `npm start` command.
+
+For debugging: `DEBUG=requestChart npm test`
+
+See also::
+- link:https://appery.io/api-express/[Standalone API Express]
+- link:https://github.com/a-services/aexlogs[aexlogs: Analyze logs from Standalone API Express]
