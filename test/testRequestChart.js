@@ -3,7 +3,8 @@ const { client, close } = require('../service/mongo.service');
 const chart = require('../service/requestChart.service');
 
 //chart.findGaps()
-testHisto();
+//testHisto();
+testAlignedHisto();
 //testConfig();
 //testMongo();
 
@@ -19,6 +20,17 @@ function testConfig() {
 
 function testHisto() {
     chart.buildRequestsHistogram(10)
+        .then(function success(result) {
+            console.log('-- success:', result);
+            close();
+        }, function error(e) {
+            console.log('-- error:', e);
+            close();
+        });
+}
+
+function testAlignedHisto() {
+    chart.buildAlignedHistogram(2)
         .then(function success(result) {
             console.log('-- success:', result);
             close();

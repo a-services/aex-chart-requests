@@ -16,8 +16,14 @@ Host name used as label on chart
 mongo_url::
 MongoDB instance url to get data
 
-req_db::
+mongo_db::
 Database with requests data
+
+mongo_coll::
+Collection with requests data
+
+tz_shift::
+Timezone shift in MongoDB data
 ====
 
 == Starting server

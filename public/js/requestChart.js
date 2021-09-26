@@ -1,25 +1,42 @@
 /* Histogram of the number of requests (server load).
  */
 
-var numSteps = 20;
+var a = {};
 
 $(function () {
-    $.get(`/reqHisto?n=${numSteps}`).then(createChart);
+    // buildHisto();
+    buildAligned()
 });
 
-function createChart(cdata) {
-    var labels = cdata.map(it => it.t);
+function buildHisto() {
+    var numSteps = 20;
+    $.get(`/reqHisto?n=${numSteps}`).then(createChart);
+}
 
-    var data = cdata.map(it => it.count);
+function buildAligned() {
+    $.get('/config').then(config => {
+        var stepMin = 1;
+
+        a.stepMin = stepMin;
+        a.hostName = config.host_name;
+        $.get(`/reqAligned?n=${stepMin}`).then(createChart);
+    });
+}
+
+function createChart(cdata) {
+    var labels = cdata.a.map(it => it.t);
+
+    var data = cdata.a.map(it => it.count);
     var color = 'rgb(255, 99, 132)';
 
+    a.chartDate = cdata.chartDate;
     const config = {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [
                 {
-                    label: "num requests",
+                    label: `Number of requests in ${a.stepMin} min`,
                     backgroundColor: color,
                     borderColor: color,
                     data: data,
@@ -28,6 +45,15 @@ function createChart(cdata) {
         },
         options: {
             responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+                title: {
+                    display: true,
+                    text: `${a.hostName} on ${a.chartDate}`
+                }
+            }
         }
     };
 

@@ -8,5 +8,7 @@ module.exports = {
 
     mongo_url: process.env.mongo_url,
     mongo_db: process.env.mongo_db,
-    mongo_coll: process.env.mongo_coll
+    mongo_coll: process.env.mongo_coll,
+
+    tz_shift: process.env.tz_shift
 }
